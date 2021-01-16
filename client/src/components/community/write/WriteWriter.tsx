@@ -101,7 +101,7 @@ export default function fun(props) {
       let errors: any = {};
       const res = err.response.data;
 
-      if (res.fb_auth) errors.fb_auth = "ログインが必要です";
+      if (res.fb_auth) errors.fb_auth = "書き込みにはログインが必要です";
       if (res.title)
         errors.title = "タイトルの内容は2以上、40以下の文字で入力してください";
       if (res.body)

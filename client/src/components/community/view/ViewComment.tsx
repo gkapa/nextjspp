@@ -86,7 +86,7 @@ export default function fun(props) {
         console.error(res);
 
         if (res.body_length) alert(`2文字以上、150文字以下で入力してください`);
-        if (res.fb_auth) alert(`ログインが必要です`);
+        if (res.fb_auth) alert(`コメントの書き込みにはログインが必要です`);
       } finally {
         refs.isAddCommentFetching.current = false;
       }

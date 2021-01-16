@@ -33,9 +33,11 @@ function MyApp({ Component, pageProps, ssp }) {
 
   React.useEffect(() => {
     // 오류처리, 참고: https://github.com/mui-org/material-ui/blob/master/examples/nextjs/pages/_app.js
+    // Warning Example:
     // Warning: Prop`className` did not match.
     //   Server: "PrivateNotchedOutline-legendLabelled-39"
     //   Client: "PrivateNotchedOutline-legendLabelled-3"
+    // ====================================================================
     // The IDs from the server side rendered CSS are not the same as the client side CSS, hence the mismatch error.
     // Remove the server-side injected CSS.
     const jssStyles = document.querySelector("#jss-server-side");
@@ -99,7 +101,10 @@ MyApp.getInitialProps = async (context) => {
     userDetailsData: null,
     token: null,
     alert: null,
-    baseURL: process.env.FUNCTIONS_URL,
+    baseURL:
+      process.env.NODE_ENV === "development"
+        ? process.env.LOCAL_FUNCTIONS_URL
+        : process.env.FUNCTIONS_URL,
   };
 
   // client side
@@ -111,8 +116,8 @@ MyApp.getInitialProps = async (context) => {
     const token = cookies.get("fbIdToken");
 
     if (!token) throw { error: "token not found" };
-    // console.log({ token: token });
 
+    // example:
     // const decodedToken = {
     //   iss: "https://securetoken.google.com/${projcetName}",
     //   aud: projectName,
@@ -158,11 +163,3 @@ MyApp.getInitialProps = async (context) => {
 };
 
 export default MyApp;
-
-// https://qiita.com/matamatanot/items/1735984f40540b8bdf91%E3%80%80
-// getInitialPropsを加えた4つのメソッドの実行環境とタイミングは以下の通りです。
-// サーバーサイド	クライアントサイド	実行タイミング
-// getStaticProps	◯	✗	ビルド時 (+ fallback=trueならリクエストに応じて)
-// getStaticPaths	◯	✗	ビルド時のみ
-// getServerSideProps	◯	✗	リクエストに応じて
-// getInitialProps	◯	◯	リクエストに応じて

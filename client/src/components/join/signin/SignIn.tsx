@@ -76,6 +76,12 @@ export default function fun(props) {
         下記よりログインしてください。
       </span>
       <br />
+      <p className="help" style={{ marginTop: "1.2rem", color: "crimson" }}>
+        * 以下のアカウントでもログインできます。 <br />
+        Eメール: test1@email.com パスワード: 123456 <br />
+        Eメール: test2@email.com パスワード: 123456 <br />
+        Eメール: test3@email.com パスワード: 123456 <br />
+      </p>
       <form
         noValidate
         style={{ marginTop: "1.4rem" }}

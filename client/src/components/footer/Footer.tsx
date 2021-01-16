@@ -7,10 +7,6 @@ import GitHubIcon from "@material-ui/icons/GitHub";
 import { colors } from "styles/theme";
 
 export default function fun(props) {
-  React.useEffect(() => {
-    // console.log(nextRouter.pathname);
-  });
-
   return (
     <Wrapper>
       <div>
@@ -21,7 +17,10 @@ export default function fun(props) {
         <GitHubIcon
           style={{ verticalAlign: "middle", marginRight: "0.4rem" }}
         />
-        <a className="underline" href="http://github.com/gkapa/nextjspp">
+        <a
+          className="underline"
+          href="http://github.com/gkapa/nextjspp"
+          target="_blank">
           github.com/gkapa/nextjspp
         </a>
       </div>

@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site": "han-reactpp",
     "public": "public",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "rewrites": [
@@ -15,9 +16,9 @@
     "ignore": [
       "**.log",
       "**/node_modules/**",
-      "src/**",
-      "public/**",
-      "__lib/**"
+      "**/src/**",
+      "**/public/**",
+      "**/__lib/**"
     ]
   }
 }

@@ -10,6 +10,7 @@ pool.*
 logs
 
 *.log
+# test.http
 *.http
 
 # firebase
