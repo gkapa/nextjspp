@@ -66,7 +66,10 @@ function MyApp({ Component, pageProps, ssp }) {
   return (
     <React.Fragment>
       <Head>
-        <title>My page</title>
+        <title>
+          Han-Sahyeon · JavaScript, TypeScript, Node.js, firebase.
+          ウェブ開発者志望
+        </title>
         <meta
           name="viewport"
           content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"

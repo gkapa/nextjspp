@@ -28,13 +28,13 @@ if (isDev) {
       const port = parseInt(process.env.PORT, 10) || 3000;
       const app = express();
 
-      // app.use(
-      //   "/api",
-      //   createProxyMiddleware({
-      //     target: functionUrl,
-      //     changeOrigin: true,
-      //   }),
-      // );
+      app.use(
+        "/api",
+        createProxyMiddleware({
+          target: functionUrl,
+          changeOrigin: true,
+        }),
+      );
 
       app.all("*", (req, res) => {
         return nextjsHandle(req, res);

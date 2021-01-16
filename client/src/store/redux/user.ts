@@ -74,6 +74,7 @@ export const signUp = (userData) => async (dispatch) => {
 
     dispatch({ type: CLEAR_ERRORS });
     NextRouter.push("/join/signin");
+    alert("アカウントが作成されました。");
   } catch (err) {
     console.error({ err });
     const res = err.response.data;
