@@ -1,0 +1,52 @@
+{
+  "name": "with-firebase-hosting",
+  "version": "0.1.0",
+  "private": true,
+  "main": "server.js",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development node server.js",
+    "build": "cross-env NODE_ENV=production next build",
+    "start": "cross-env NODE_ENV=production node server.js",
+    "deploy": "npm run build && firebase deploy --only functions,hosting",
+    "quick": "npm run build && firebase deploy --only hosting",
+    "log": "firebase functions:log",
+    "serve": "npm run build && firebase emulators:start --only functions,hosting",
+    "shell": "npm run build && firebase functions:shell",
+    "_dev": "next src/"
+  },
+  "dependencies": {
+    "@material-ui/core": "^4.11.2",
+    "@material-ui/icons": "^4.11.2",
+    "axios": "^0.21.1",
+    "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
+    "express": "^4.17.1",
+    "firebase-admin": "^9.4.2",
+    "firebase-functions": "^3.13.0",
+    "http-proxy-middleware": "^1.0.6",
+    "jwt-decode": "^3.1.2",
+    "next": "^10.0.5",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-intersection-observer": "^8.31.0",
+    "react-redux": "^7.2.2",
+    "react-router-dom": "^5.2.0",
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0",
+    "styled-components": "^5.2.1"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^0.2.3",
+    "firebase-tools": "^9.2.0",
+    "@types/http-proxy-middleware": "^0.19.3",
+    "@types/node": "^14.14.20",
+    "@types/nodemon": "^1.19.0",
+    "@types/react": "^17.0.0",
+    "@types/react-redux": "^7.1.15",
+    "@types/styled-components": "^5.1.7",
+    "@types/webpack-env": "^1.16.0",
+    "babel-plugin-styled-components": "^1.12.0",
+    "nodemon": "^2.0.7",
+    "typescript": "^4.1.3"
+  }
+}

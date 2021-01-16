@@ -1,0 +1,23 @@
+{
+  "hosting": {
+    "public": "public",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "rewrites": [
+      {
+        "source": "**",
+        "function": "customServer"
+      }
+    ]
+  },
+  "functions": {
+    "source": ".",
+    "runtime": "nodejs10",
+    "ignore": [
+      "**.log",
+      "**/node_modules/**",
+      "src/**",
+      "public/**",
+      "__lib/**"
+    ]
+  }
+}
