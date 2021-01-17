@@ -19,9 +19,6 @@ import ListTable from "./ListTable";
 import ListPageGuide from "./ListPageGuide";
 
 export default function fun(props) {
-  React.useEffect(() => {
-    console.log({ props: props.ssp });
-  }, []);
   return (
     <Wrapper>
       <CommunityTitle>COMMUNITY</CommunityTitle>

@@ -8,7 +8,7 @@ const firebase = require("firebase");
 
 const categories = ["一般", "情報", "その他"];
 
-exports.getPostsFromList = async (req, res) => {
+exports.getPostsFromPage = async (req, res) => {
   const reqData = {
     page: parseInt(req.params.page, 10),
     postNumPerPage: 10,
@@ -36,14 +36,18 @@ exports.getPostsFromList = async (req, res) => {
     const targetPage = reqData.page;
     const postNumPerPage = reqData.postNumPerPage;
     const latestPostIdx = latestPostQry.docs[0].data().idx;
-    let lastPostIdx = latestPostIdx - (targetPage - 1) * postNumPerPage;
-    let firstPostIdx = Math.max(1, latestPostIdx - postNumPerPage + 1);
-    if (lastPostIdx < firstPostIdx) lastPostIdx = firstPostIdx;
+    let lastPostIdxOfPage = latestPostIdx - (targetPage - 1) * postNumPerPage;
+    let firstPostIdxOfPage = Math.max(
+      1,
+      lastPostIdxOfPage - postNumPerPage + 1,
+    );
+    if (lastPostIdxOfPage < firstPostIdxOfPage)
+      lastPostIdxOfPage = firstPostIdxOfPage;
 
     const postsListQry = await db
       .collection(`posts`)
-      .where(`idx`, `<=`, lastPostIdx)
-      .where(`idx`, `>=`, firstPostIdx)
+      .where(`idx`, `<=`, lastPostIdxOfPage)
+      .where(`idx`, `>=`, firstPostIdxOfPage)
       .limit(postNumPerPage)
       .get();
 
@@ -55,7 +59,7 @@ exports.getPostsFromList = async (req, res) => {
       let createdAt = splitTimeStamp(doc.data().created_at);
       const currentTime = splitTimeStamp(admin.firestore.Timestamp.now());
       if (currentTime.day !== createdAt.day) {
-        createdAt = `${createdAt.month}.${createdAt.day}`;
+        createdAt = `${createdAt.year}.${createdAt.month}.${createdAt.day}`;
       } else {
         createdAt = `${createdAt.hour}:${createdAt.min}`;
       }
@@ -87,7 +91,7 @@ exports.getPostsFromList = async (req, res) => {
       resData.postsData.push(newData);
     }
     resData.postsData.reverse();
-    resData.pageData.latestPostIdx = lastPostIdx;
+    resData.pageData.latestPostIdx = lastPostIdxOfPage;
 
     return res.status(200).json(resData);
   } catch (err) {

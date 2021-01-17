@@ -21,7 +21,7 @@ const { fbAuth, db } = require("./util/admin");
 // firebase deploy --only functions:func1,functions:func2
 
 const posts = require("./handlers/posts");
-app.get("/posts/getpostsfromlist/:page", posts.getPostsFromList);
+app.get("/posts/getpostsfrompage/:page", posts.getPostsFromPage);
 app.post("/posts/createpost", fbAuth, posts.createPost);
 app.post("/posts/editpost/:idx", fbAuth, posts.editPost);
 app.get("/posts/getpost/:idx", posts.getPost);

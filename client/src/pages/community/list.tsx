@@ -45,7 +45,7 @@ export async function getServerSideProps(context) {
 
   try {
     const dataQry = await fetch(
-      `${process.env.FUNCTIONS_URL}/api/posts/getpostsfromlist/${context.query.page}`,
+      `${process.env.FUNCTIONS_URL}/api/posts/getpostsfrompage/${context.query.page}`,
       {
         method: "GET",
       },

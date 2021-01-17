@@ -60,7 +60,6 @@ export default function fun(props) {
 
   // set navbar state by pathname
   React.useEffect(() => {
-    console.log({ path: nextRouter.pathname });
     if (nextRouter.pathname === "/home") {
       setNavbarColor(navbarMainColor.home);
       setNavbarPosition("absolute");
@@ -75,7 +74,6 @@ export default function fun(props) {
     if (!Object.keys(refs.links.current)) return;
     let left = 0;
 
-    // Object.keys(refs.links.current).map((x) => console.log({ links: x }));
     for (const helper in refs.links.current) {
       if (!refs.links.current[helper]) continue;
       left = refs.links.current[helper].offsetLeft;
