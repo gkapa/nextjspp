@@ -80,15 +80,21 @@ export const signUp = (userData) => async (dispatch) => {
     const res = err.response.data;
     let errors: any = {};
 
+    console.log({ res: res });
+
     // if (res.signId) errors.signId = ""
-    if (res.email) errors.email = "正しいEメール入力してください。";
+    if (res.email || res.sign_id) {
+      errors.email = "正しいEメール入力してください。";
+      if (res.sign_id) {
+        errors.email += "英語の小文字のみを入力してください。";
+      }
+    }
     if (res.password) {
       errors.password = "正しいパスワードをく入力してください。";
       errors.password += "パスワードは6文字以上を入力してください。";
     }
-
     if (res.confirm_password)
-      errors.confirm_password = "パスワードが一致していないです。";
+      errors.confirm_password = "パスワードが一致してないです。";
 
     if (res.code) {
       let msg = "";
@@ -100,6 +106,7 @@ export const signUp = (userData) => async (dispatch) => {
         case "auth/email-already-in-use":
           msg = "既に登録されているEメールです。";
           errors.email = msg;
+          break;
         default:
           msg = "未設定エラーです。";
           msg += `\nERROR CODE: ${res.code}`;

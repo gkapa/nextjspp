@@ -2,16 +2,12 @@ import React from "react";
 import styled from "styled-components";
 
 // Communication stuff
-// import axios from 'axios';
-// import NextLink from "next/link";
 import { useRouter } from "next/router";
 
 // Material-ui stuff
 import { makeStyles } from "@material-ui/core/styles";
 import { MaterialTheme } from "styles/theme";
-// import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
-// import PersonIcon from "@material-ui/icons/Person";
 
 // Redux stuff
 import { shallowEqual } from "react-redux";
@@ -23,9 +19,6 @@ import { userAction } from "store";
 // Components
 import Button from "atoms/Button";
 import LoadingIndicator from "blocks/LoadingIndicator";
-import { Email } from "@material-ui/icons";
-
-// interface Props {}
 
 const styles = makeStyles((theme) => ({
   hover: {
@@ -67,7 +60,6 @@ export default function fun(props) {
   }, []);
 
   const dispatch = useDispatch();
-  // const nextRouter = useRouter();
 
   const handleOnSubmit = React.useCallback((e) => {
     e.preventDefault();

@@ -18,12 +18,12 @@ exports.signUp = async (req, res) => {
     confirm_password: req.body.confirm_password,
   };
 
-  const { isValid, errors } = validateSignUpData(newData);
-  if (!isValid) return res.status(400).json(errors);
-
-  const noImg = "mystery-man.png";
-
   try {
+    const { isValid, errors } = validateSignUpData(newData);
+    if (!isValid) throw { ...errors };
+
+    const noImg = "mystery-man.png";
+
     const userQry = await db.doc(`/users/${newData.sign_id}`).get();
     if (userQry.exists) throw { code: "registered" };
 
