@@ -2,37 +2,34 @@ import React from "react";
 import styled from "styled-components";
 
 // Communication stuff
-// import axios from 'axios';
 import NextLink from "next/link";
-// import NextRouter from "next/router";
 import { useRouter } from "next/router";
 
 // Material-ui stuff
 import FastForwardIcon from "@material-ui/icons/FastForward";
 import FastRewindIcon from "@material-ui/icons/FastRewind";
 
-// Redux stuff
-// import { shallowEqual, useSelector } from "react-redux";
-// import { useDispatch } from "react-redux";
-// import { RootState } from "store";
-
 // Components
 import Button from "atoms/Button";
 import { colors } from "styles/theme";
 
-export default function fun(props) {
+import { IListProps } from ".";
+
+export default function fun(props: IListProps) {
+  const { pageData } = props;
   const nextRouter = useRouter();
 
-  const [prevPageAdr, setPrevPageAdr] = React.useState(1);
-  const [nextPageAdr, setNextPageAdr] = React.useState(1);
+  const [prevPageAdr, setPrevPageAdr] = React.useState(null);
+  const [nextPageAdr, setNextPageAdr] = React.useState(null);
   const [adjacentPages, setAdjacentPages] = React.useState([]);
 
   React.useEffect(() => {
+    if (!pageData) return;
     const currentPage = parseInt(nextRouter.query.page as string, 10);
 
     const maxPageAdr = Math.max(
       1,
-      Math.floor((props.ssp.pageData.latestPostIdx - 1) / 10) + 1,
+      Math.floor((pageData.latestPostIdx - 1) / 10) + 1,
     );
 
     const prevPageAdr = Math.max(
@@ -66,7 +63,7 @@ export default function fun(props) {
     //   adjs: adjPages,
     //   page: nextRouter.query.page,
     // });
-  }, [nextRouter.query.page]);
+  }, [nextRouter.query.page, pageData]);
 
   return (
     <Wrapper>
@@ -78,26 +75,30 @@ export default function fun(props) {
         </a>
       </NextLink>
       <hr className="vr"></hr>
-      {adjacentPages.map((page) => {
-        return (
-          <React.Fragment key={page}>
-            <NextLink href={`/community/list?page=${page}`}>
-              <a>
-                <Button
-                  className={`pageGuide`}
-                  bg={
-                    parseInt(nextRouter.query.page as string, 10) === page
-                      ? colors.lightblue[2]
-                      : "transparent"
-                  }>
-                  {page}
-                </Button>
-              </a>
-            </NextLink>
-            <hr className="vr"></hr>
-          </React.Fragment>
-        );
-      })}
+      {pageData && (
+        <>
+          {adjacentPages.map((page) => {
+            return (
+              <React.Fragment key={page}>
+                <NextLink href={`/community/list?page=${page}`}>
+                  <a>
+                    <Button
+                      className={`pageGuide`}
+                      bg={
+                        parseInt(nextRouter.query.page as string, 10) === page
+                          ? colors.lightblue[2]
+                          : "transparent"
+                      }>
+                      {page}
+                    </Button>
+                  </a>
+                </NextLink>
+                <hr className="vr"></hr>
+              </React.Fragment>
+            );
+          })}
+        </>
+      )}
       <NextLink href={`/community/list?page=${nextPageAdr}`}>
         <a>
           <Button className="pageGuide" bg="transparent">

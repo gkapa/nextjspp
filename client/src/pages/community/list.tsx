@@ -12,7 +12,7 @@ import { useRouter } from "next/router";
 
 // Components
 // import Button from 'atoms/Button';
-import List from "components/community/list/List";
+import List from "components/community/list";
 
 export default function fun(props) {
   const nextRouter = useRouter();
@@ -31,32 +31,32 @@ const Wrapper = styled.div`
   margin: 0 auto;
 `;
 
-export async function getServerSideProps(context) {
-  let ssp = {
-    postsData: null,
-    pageData: null,
-  };
+// export async function getServerSideProps(context) {
+//   let ssp = {
+//     postsData: null,
+//     pageData: null,
+//   };
 
-  // ssp.postsData = skeleton;
-  ssp.pageData = {
-    postNumPerPage: 10,
-    // latestPostIdx: 320,
-  };
+//   // ssp.postsData = skeleton;
+//   ssp.pageData = {
+//     postNumPerPage: 10,
+//     // latestPostIdx: 320,
+//   };
 
-  try {
-    const dataQry = await fetch(
-      `${process.env.FUNCTIONS_URL}/api/posts/getpostsfrompage/${context.query.page}`,
-      {
-        method: "GET",
-      },
-    );
-    if (!dataQry.ok) throw { errors: await dataQry.json() };
-    const data = await dataQry.json();
+//   try {
+//     const dataQry = await fetch(
+//       `${process.env.FUNCTIONS_URL}/api/posts/getpostsfrompage/${context.query.page}`,
+//       {
+//         method: "GET",
+//       },
+//     );
+//     if (!dataQry.ok) throw { errors: await dataQry.json() };
+//     const data = await dataQry.json();
 
-    ssp = { ...data };
-  } catch (err) {
-    // console.error(err);
-  }
+//     ssp = { ...data };
+//   } catch (err) {
+//     // console.error(err);
+//   }
 
-  return { props: { ssp } };
-}
+//   return { props: { ssp } };
+// }

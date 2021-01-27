@@ -22,7 +22,7 @@ import { userAction } from "store";
 import Layout from "layouts/Layout";
 
 import jwtDecode from "jwt-decode";
-import Cookies from "util/CookieHandler";
+import Cookies from "utils/CookieHandler";
 
 const generateClassName = createGenerateClassName({
   productionPrefix: "myclasses-",

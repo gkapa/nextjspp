@@ -1,6 +1,6 @@
 import axios from "axios";
 import NextRouter from "next/router";
-import Cookies from "util/CookieHandler";
+import Cookies from "utils/CookieHandler";
 
 export const SET_LOADING = "user/SET_LOADING" as const;
 export const SET_ERRORS = "user/SET_ERRORS" as const;
@@ -86,7 +86,7 @@ export const signUp = (userData) => async (dispatch) => {
     if (res.email || res.sign_id) {
       errors.email = "正しいEメール入力してください。";
       if (res.sign_id) {
-        errors.email += "英語の小文字のみを入力してください。";
+        errors.email += "4文字以上、英語の小文字のみを入力してください。";
       }
     }
     if (res.password) {

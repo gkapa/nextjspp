@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import Cookies from "util/CookieHandler";
+import Cookies from "utils/CookieHandler";
 
 // Communication stuff
 // import axios from 'axios';

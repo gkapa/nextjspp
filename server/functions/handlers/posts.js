@@ -1,10 +1,6 @@
 const { db, admin } = require("../util/admin");
 const { FieldValue } = require("firebase-admin").firestore;
 const { splitTimeStamp } = require("../util/converters");
-const firebase = require("firebase");
-
-// 정렬 참고
-// https://firebase.google.com/docs/firestore/query-data/order-limit-data?hl=ko
 
 const categories = ["一般", "情報", "その他"];
 
@@ -21,9 +17,6 @@ exports.getPostsFromPage = async (req, res) => {
   };
 
   try {
-    // 表示版の見せるページの数を次のようにします
-    // first post = {(latest post idx) - (target page - 1)*(postNum per page)} から
-    // last post = (first post) - (postNum per page + 1)まで
     if (reqData.page < 1) throw { errors: "invalid page" };
 
     const latestPostQry = await db

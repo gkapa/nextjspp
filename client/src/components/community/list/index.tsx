@@ -2,27 +2,61 @@ import React from "react";
 import styled from "styled-components";
 
 // Communication stuff
-// import axios from 'axios';
+import axios from "axios";
 import NextLink from "next/link";
-// import NextRouter from "next/router";
-// import { useRouter } from "next/router";
+import { useRouter } from "next/router";
 
 // Material-ui stuff
 import CreateIcon from "@material-ui/icons/Create";
-
-// Redux stuff
 
 // Components
 import Button from "atoms/Button";
 import { colors } from "styles/theme";
 import ListTable from "./ListTable";
-import ListPageGuide from "./ListPageGuide";
+import PageGuide from "./PageGuide";
+
+export interface IPageData {
+  latestPostIdx: number;
+}
+export interface IPostData {
+  idx: number;
+  status: string;
+  category: string;
+  title: string;
+  created_at: string;
+  donor: string;
+  view_cnt: number;
+  like_quantity: number;
+  comment_cnt: number;
+}
+export interface IListProps {
+  postsData?: IPostData[];
+  pageData?: IPageData;
+}
 
 export default function fun(props) {
+  const nextRouter = useRouter();
+  const [postsData, setPostsData] = React.useState<IPostData[] | null>(null);
+  const [pageData, setPageData] = React.useState<IPageData | null>(null);
+
+  React.useEffect(() => {
+    (async function () {
+      const listQry = await axios.get(
+        `/api/posts/getpostsfrompage/${nextRouter.query.page}`,
+      );
+      setPostsData(listQry.data.postsData);
+      setPageData(listQry.data.pageData);
+      try {
+      } catch (err) {
+        console.error(err);
+      }
+    })();
+  }, []);
+
   return (
     <Wrapper>
-      <CommunityTitle>COMMUNITY</CommunityTitle>
-      <ListTable ssp={props.ssp}></ListTable>
+      <CommunityTitle>Dash Board</CommunityTitle>
+      <ListTable postsData={postsData} pageData={pageData} />
       <ButtonsUnderTable>
         <NextLink href={`/community/write`}>
           <a>
@@ -35,7 +69,7 @@ export default function fun(props) {
           </a>
         </NextLink>
       </ButtonsUnderTable>
-      <ListPageGuide ssp={props.ssp}></ListPageGuide>
+      <PageGuide pageData={pageData} />
     </Wrapper>
   );
 }

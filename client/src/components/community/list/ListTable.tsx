@@ -2,10 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 // Communication stuff
-// import axios from 'axios';
 import NextLink from "next/link";
-// import NextRouter from "next/router";
-// import { useRouter } from "next/router";
 
 // Material-ui stuff
 import ForumIcon from "@material-ui/icons/Forum";
@@ -16,106 +13,120 @@ import ThumbsUpDownIcon from "@material-ui/icons/ThumbsUpDown";
 import PersonAddIcon from "@material-ui/icons/PersonAdd";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 
-// Redux stuff
-// import { shallowEqual, useSelector } from "react-redux";
-// import { useDispatch } from "react-redux";
-// import { RootState } from "store";
-
 // Components
 import { colors } from "styles/theme";
+import LoadingIndicator from "blocks/LoadingIndicator";
+
+import { IListProps } from ".";
 
 const fontSizeSmall = "0.8rem";
 
-export default function fun(props) {
+export default function fun(props: IListProps) {
+  const { postsData } = props;
   return (
     <TableWrapper>
       <thead>
         <tr>
           <th className="alarm"></th>
           <th className="title">
-            <ForumIcon></ForumIcon>
+            <ForumIcon />
           </th>
           <th className="comment">
-            <SmsIcon></SmsIcon>
+            <SmsIcon />
           </th>
           <th className="like">
-            <ThumbsUpDownIcon></ThumbsUpDownIcon>
+            <ThumbsUpDownIcon />
           </th>
           <th className="view">
-            <ForumIcon></ForumIcon>
+            <ForumIcon />
           </th>
           <th className="created">
-            <PersonAddIcon></PersonAddIcon>
+            <PersonAddIcon />
           </th>
         </tr>
       </thead>
       <tbody>
-        {props.ssp.postsData.map((data, idx) => {
-          return (
-            <tr key={idx}>
-              <td
-                className={`alarm ${data.comment_cnt > 0 ? "hi" : "lo"}`}></td>
-              <td className="title">
-                <div className="head">
-                  <span className="idx">#{data.idx}</span>
-                  <span
-                    className={`category ${
-                      data.category === "一般" ? "common" : ""
+        {postsData ? (
+          <>
+            {postsData.map((data, idx) => {
+              return (
+                <tr key={idx}>
+                  <td
+                    className={`alarm ${
+                      data.comment_cnt > 0 ? "hi" : "lo"
+                    }`}></td>
+                  <td className="title">
+                    <div className="head">
+                      <span className="idx">#{data.idx}</span>
+                      <span
+                        className={`category ${
+                          data.category === "一般" ? "common" : ""
+                        }`}>
+                        <ForumIcon
+                          fontSize="small"
+                          className="mIcon wIcon"></ForumIcon>
+                        {data.category}
+                      </span>
+                    </div>
+                    <div className="body text">
+                      {data.status !== "disabled" ? (
+                        <NextLink href={`/community/view?idx=${data.idx}`}>
+                          <a>{data.title}</a>
+                        </NextLink>
+                      ) : (
+                        <p style={{ color: `${colors.gray[5]}` }}>
+                          {data.title}
+                        </p>
+                      )}
+                    </div>
+                  </td>
+                  <td
+                    className={`comment text ${
+                      data.comment_cnt > 0 ? "hi" : "lo"
                     }`}>
-                    <ForumIcon
+                    <SmsIcon fontSize="small" className={`mIcon`}></SmsIcon>
+                    {data.comment_cnt}
+                  </td>
+                  <td
+                    className={`like text ${
+                      data.like_quantity > 0 ? "hi" : "lo"
+                    }`}>
+                    {data.like_quantity >= 0 ? (
+                      <ThumbUpIcon
+                        fontSize="small"
+                        className="mIcon"></ThumbUpIcon>
+                    ) : (
+                      <ThumbDownIcon
+                        fontSize="small"
+                        className={`mIcon`}></ThumbDownIcon>
+                    )}
+                    {data.like_quantity}
+                  </td>
+                  <td
+                    className={`view text ${data.view_cnt > 0 ? "hi" : "lo"}`}>
+                    <VisibilityIcon
                       fontSize="small"
-                      className="mIcon wIcon"></ForumIcon>
-                    {data.category}
-                  </span>
-                </div>
-                <div className="body text">
-                  {data.status !== "disabled" ? (
-                    <NextLink href={`/community/view?idx=${data.idx}`}>
-                      <a>{data.title}</a>
-                    </NextLink>
-                  ) : (
-                    <p style={{ color: `${colors.gray[5]}` }}>{data.title}</p>
-                  )}
-                </div>
-              </td>
-              <td
-                className={`comment text ${
-                  data.comment_cnt > 0 ? "hi" : "lo"
-                }`}>
-                <SmsIcon fontSize="small" className={`mIcon`}></SmsIcon>
-                {data.comment_cnt}
-              </td>
-              <td
-                className={`like text ${data.like_quantity > 0 ? "hi" : "lo"}`}>
-                {data.like_quantity >= 0 ? (
-                  <ThumbUpIcon fontSize="small" className="mIcon"></ThumbUpIcon>
-                ) : (
-                  <ThumbDownIcon
-                    fontSize="small"
-                    className={`mIcon`}></ThumbDownIcon>
-                )}
-                {data.like_quantity}
-              </td>
-              <td className={`view text ${data.view_cnt > 0 ? "hi" : "lo"}`}>
-                <VisibilityIcon
-                  fontSize="small"
-                  className={`mIcon`}></VisibilityIcon>
-                {data.view_cnt}
-              </td>
-              <td className="created">
-                <span className="icon">
-                  <PersonAddIcon
-                    fontSize="small"
-                    className="icon"></PersonAddIcon>
-                </span>
-                <span className="detail">
-                  <div className="donor text">{data.donor}</div>
-                  <div className="time">{data.created_at}</div>
-                </span>
-              </td>
-            </tr>
-          );
-        })}
+                      className={`mIcon`}></VisibilityIcon>
+                    {data.view_cnt}
+                  </td>
+                  <td className="created">
+                    <span className="icon">
+                      <PersonAddIcon
+                        fontSize="small"
+                        className="icon"></PersonAddIcon>
+                    </span>
+                    <span className="detail">
+                      <div className="donor text">{data.donor}</div>
+                      <div className="time">{data.created_at}</div>
+                    </span>
+                  </td>
+                </tr>
+              );
+            })}
+          </>
+        ) : (
+          <LoadingIndicator />
+        )}
       </tbody>
     </TableWrapper>
   );
