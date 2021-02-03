@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "site": "han-reactpp",
+    "site": "hashi-clone",
     "public": "public",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "rewrites": [
@@ -13,12 +13,6 @@
   "functions": {
     "source": ".",
     "runtime": "nodejs10",
-    "ignore": [
-      "**.log",
-      "**/node_modules/**",
-      "**/src/**",
-      "**/public/**",
-      "**/__lib/**"
-    ]
+    "ignore": ["**.log", "**/node_modules/**", "**/src/**", "**/public/**"]
   }
 }
