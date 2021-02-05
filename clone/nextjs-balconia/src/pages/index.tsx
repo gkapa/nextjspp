@@ -1,3 +1,4 @@
+import React from "react";
 import Head from "layouts/head";
 import { useRouter } from "next/router";
 
@@ -13,8 +14,18 @@ export default function Home() {
         }
         url={nextRouter.pathname}
       />
-
-      <div>ddd</div>
+      <div>
+        SSsdfsdfsdvServer.renderErrorToHTML
+        (E:\_PROGRAMMING\React\hosting_2\clone\nextjs-balconia\node_modules\next\dist\server\next-dev-server.js:34:1204)
+        at async DevServer.renderToHTML
+        (E:\_PROGRAMMING\React\hosting_2\clone\nextjs-balconia\node_modules\next\dist\next-server\server\next-server.js:133:1277)
+        at async DevServer.renderToHTML
+        (E:\_PROGRAMMING\React\hosting_2\clone\nextjs-balconia\node_modules\next\dist\server\next-dev-server.js:34:578)
+        at async DevServer.render
+        (E:\_PROGRAMMING\React\hosting_2\clone\nextjs-balconia\node_modules\next\dist\next-server\server\next-server.js:72:236)
+        at async Object.fn
+        (E:\_PROGRAMMING\React\hosting_2\clone\nextjs-balconia\node_modules\next\dist\next-server\server\next-server.js:56:580)fS
+      </div>
     </>
   );
 }

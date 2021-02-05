@@ -1,32 +1,38 @@
 import Head from "next/head";
 
+const locales = {
+  en: "en_US",
+  ko: "ko_KR",
+};
+
 const common = {
   image: "https://www.balconia.co.jp/img/ogp.png",
-  url: "https://www.balconia.co.jp/",
+  url: "https://www.balconia.co.jp",
 };
 
 interface Props {
   title: string;
   description: string;
   type?: string;
-  keyword?: string;
+  keywords?: string;
   image?: string;
-  url?: string;
+  url: string;
 }
 
-export default ({
+export default function fun({
   title,
   description,
-  keyword,
+  type,
+  keywords,
   image,
   url,
-}: Props): JSX.Element => {
+}: Props) {
   return (
     <Head>
       <title>{title}</title>
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
-      <meta name="keywords" content={keyword} />
+      {keywords && <meta name="keywords" content={keywords} />}
       <meta property="og:type" content="website" />
       <meta property="og:url" content={`${common.url}${url}`} />
       <meta property="og:image" content={image ? image : common.image} />
@@ -42,7 +48,7 @@ export default ({
       <link rel="apple-touch-icon" href="/logo_balconia.svg" />
     </Head>
   );
-};
+}
 
 // rel="canonical"은 표준 페이지를 설정하는 역할을 한다. 표준 페이지란 같은 내용을 표기하는 다수의 URL이 존재할 때 대표되는 URL을 뜻한다. 다음과 같은 블로그 URL이 있다고 가정해보자.
 
