@@ -1,12 +1,13 @@
 interface IMenuItem {
   name: string;
   link?: string;
-  links?: string;
+  links?: string[];
 }
 
 export const menuItems: IMenuItem[] = [
   {
     name: "Service",
+    links: ["aa", "bb"],
   },
   {
     name: "About",

@@ -3,7 +3,7 @@ import { colors } from "./theme";
 
 const GlobalStyle = createGlobalStyle`
 
-  * {margin: 0; padding: 0; box-sizing: border-border-box;}
+  * {margin: 0; padding: 0; box-sizing: border-box;}
   *::before, *::after {box-sizing: border-box;}
 
   html {
@@ -33,6 +33,12 @@ const GlobalStyle = createGlobalStyle`
     &:visited {
       color: inherit;
     }
+  }
+
+  button {
+    border: none;
+    background-color: transparent;
+    outline: none;
   }
   
   input, textarea {

@@ -3,14 +3,18 @@ import styled from "styled-components";
 
 import Hide from "atoms/Hide";
 
-export default function fun(props) {
-  const [isHiMobileGuide, setIsHiMobileGuide] = React.useState<boolean>(false);
+import NavbarLaptop from "./NavbarLaptop";
+import NavbarMobile from "./NavbarMobile";
 
+export default function fun(props) {
   return (
     <Wrapper>
-      <h1>Script</h1>
-      <Hide when={"greaterThanTablet"}>{isHiMobileGuide ? <></> : <></>}</Hide>
-      <Hide when={"lessThanTablet"}></Hide>
+      <Hide when={"greaterThanTablet"}>
+        <NavbarMobile />
+      </Hide>
+      <Hide when={"lessThanTablet"}>
+        <NavbarLaptop />
+      </Hide>
     </Wrapper>
   );
 }
