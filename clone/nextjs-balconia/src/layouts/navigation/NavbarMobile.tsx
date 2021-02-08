@@ -4,76 +4,149 @@ import styled, { css } from "styled-components";
 import MenuIcon from "@material-ui/icons/Menu";
 import CloseIcon from "@material-ui/icons/Close";
 
-import { colors } from "styles/theme";
+import { RootState } from "store";
+import { shallowEqual, useSelector } from "react-redux";
+
+import { colors, vars } from "styles/theme";
 import { menuItems } from "./menuItems";
 
 export default function fun() {
   const [isHiMenuGuide, setIsHiMenuGuide] = React.useState<boolean>(false);
 
+  const isNavbarHide = useSelector(
+    (x: RootState) => x.navbarReducer.isHide,
+    shallowEqual,
+  );
+
   return (
-    <Container>
+    <Container isNavbarHide={isNavbarHide}>
+      <div
+        id="navbar-blank"
+        style={{ width: "100%", height: `${vars.navbar.height}` }}
+      />
       <Appbar isHi={isHiMenuGuide}>
-        <div>
-          {!isHiMenuGuide && (
-            <a href="/" target="_self">
-              <img className="corp-logo" alt="logo" src="ogp.png" />
-            </a>
-          )}
+        <div id="logo-area" className="fade fade-out">
+          <a href="/" target="_self">
+            <img className="corp-logo" alt="logo" src="ogp.png" />
+          </a>
         </div>
-        <div style={{ textAlign: "right" }}>
+        <div id="guide-area" style={{ textAlign: "right" }}>
           <button
             className="nav-opener"
             onClick={() => {
               setIsHiMenuGuide(!isHiMenuGuide);
             }}>
             {isHiMenuGuide ? (
-              <CloseIcon className="close-icon" />
+              <CloseIcon className="fade fade-in close-icon" />
             ) : (
-              <MenuIcon className="menu-icon" />
+              <MenuIcon className="fade fade-out menu-icon" />
             )}
           </button>
         </div>
-        {isHiMenuGuide && (
-          <section style={{ gridColumn: "span 2", width: "100%" }}>
-            {menuItems.map((item) => {
-              return (
-                <React.Fragment key={item.name}>
-                  <MenuItem>{item.name}</MenuItem>
-                </React.Fragment>
-              );
-            })}
-            <ul></ul>
-          </section>
-        )}
+        <section id="menu-area" className="fade fade-in">
+          {menuItems.map((item) => {
+            return (
+              <React.Fragment key={item.name}>
+                {item.link && (
+                  <a href={item.link} target="_self">
+                    <MenuItem className="fade fade-in">{item.name}</MenuItem>
+                  </a>
+                )}
+                {item.links && (
+                  <>
+                    <MenuItem className="fade fade-in">{item.name}</MenuItem>
+                    {item.links.map((item) => {
+                      return (
+                        <a key={item.name} href={item.link} target="_self">
+                          <MenuItem className="fade fade-in list">
+                            {item.name}
+                          </MenuItem>
+                        </a>
+                      );
+                    })}
+                  </>
+                )}
+              </React.Fragment>
+            );
+          })}
+        </section>
       </Appbar>
     </Container>
   );
 }
 
-const Container = styled.div`
+const Container = styled.div.attrs(() => {})<{
+  isNavbarHide: boolean;
+}>`
+  position: relative;
   width: 100%;
+
+  & * {
+    ${(p) =>
+      p.isNavbarHide === true
+        ? css`
+            visibility: hidden;
+          `
+        : null};
+  }
 `;
 
 const Appbar = styled.div.attrs(() => {})<{
   isHi: boolean;
 }>`
-  position: relative;
-  padding: 3px 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: ${vars.navbar.height};
 
-  background-color: ${(p) => (p.isHi ? `${colors.gray[6]}` : "transparent")};
-
-  transition: all 0.4s;
+  background-color: ${(p) => (p.isHi ? `${colors.gray[8]}` : "transparent")};
 
   display: grid;
   grid-template-columns: repeat(2, 1fr);
 
+  transition: all 0.5s;
+
+  .fade {
+    transition: all 0.5s;
+
+    &.fade-in {
+      ${(p) =>
+        !p.isHi
+          ? css`
+              opacity: 0;
+              visibility: hidden;
+            `
+          : css`
+              opaicty: 1;
+              visibility: visible;
+            `}
+    }
+
+    &.fade-out {
+      ${(p) =>
+        p.isHi
+          ? css`
+              opacity: 0;
+              visibility: hidden;
+            `
+          : css`
+              opaicty: 1;
+              visibility: visible;
+            `}
+    }
+  }
+
   .corp-logo {
-    width: 80px;
-    margin-left: 20px;
+    height: 70px;
+    margin: 5px 30px;
   }
 
   .nav-opener {
+    margin: 5px 30px;
     padding: 5px 30px;
+
+    transition: all 2s;
 
     .menu-icon {
       font-size: 2rem;
@@ -84,18 +157,30 @@ const Appbar = styled.div.attrs(() => {})<{
     .close-icon {
       font-size: 2rem;
       transform: scale(1.2);
-      color: ${colors.gray[8]};
+      color: ${colors.gray[2]};
     }
+  }
+
+  #menu-area {
+    position: absolute;
+    top: 100%;
+    width: 100%;
+    grid-column: span 2;
+    background-color: ${(p) => (p.isHi ? `${colors.gray[8]}` : "transparent")};
   }
 `;
 
-const MenuItem = styled.ul`
+const MenuItem = styled.div`
   width: 100%;
-  border-bottom: 1px solid ${colors.bluegray[6]};
+  padding: 15px;
+  padding-left: 30px;
+  border-bottom: 1px solid ${colors.gray[5]};
 
   font-size: 1.6em;
+  color: white;
 
-  li {
-    background-color: ${colors.gray[7]};
+  &.list {
+    padding-left: 60px;
+    background-color: ${colors.gray[9]};
   }
 `;

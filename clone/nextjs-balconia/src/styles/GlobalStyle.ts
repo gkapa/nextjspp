@@ -11,7 +11,12 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Noto Serif JP', 'Open Sans', sans-serif;
+  }
+
+  h1, h2, h3, h4 {
+    line-height: 1.6;
+    font-weight: normal;
   }
 
   a {
@@ -49,11 +54,12 @@ const GlobalStyle = createGlobalStyle`
     list-style: none;
   }
 
-  .vr {
+  .gl-vr {
     display: inline;
     margin: 0 0.25em; 
     height: 1em;
   }
+  
 `;
 
 export default GlobalStyle;

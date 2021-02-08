@@ -1,8 +1,8 @@
 import React from "react";
-import Head from "layouts/Head";
 import { useRouter } from "next/router";
 
-import Home from "components/home/index";
+import Head from "atoms/Head";
+import Home from "components/home/Home";
 
 export default function fun() {
   const nextRouter = useRouter();
@@ -16,7 +16,7 @@ export default function fun() {
         }
         url={nextRouter.pathname}
       />
-      <div></div>
+      <Home></Home>
     </>
   );
 }

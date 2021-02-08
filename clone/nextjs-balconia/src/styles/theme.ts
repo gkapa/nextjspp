@@ -26,4 +26,7 @@ export const vars = {
   maxWidth: {
     main: "1080px",
   },
+  navbar: {
+    height: "100px",
+  },
 };

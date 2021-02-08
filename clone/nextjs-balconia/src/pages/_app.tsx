@@ -1,6 +1,11 @@
 import React from "react";
+import Head from "next/head";
 import "styles/normalize.css";
 import GlobalStyle from "styles/GlobalStyle";
+
+// Redux stuff
+import { Provider } from "react-redux";
+import { store } from "store";
 
 import Layout from "layouts/Layout";
 
@@ -14,10 +19,17 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <React.Fragment>
+      <Head>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500&display=swap"
+          rel="stylesheet"></link>
+      </Head>
       <GlobalStyle />
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
+      <Provider store={store}>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </Provider>
     </React.Fragment>
   );
 }
