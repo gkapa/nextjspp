@@ -15,7 +15,7 @@ export default function fun(props) {
         description={"XX開発の３つのサービスを提供するXX支援企業です。"}
         url={nextRouter.pathname}
       />
-      <Home></Home>
+      <Home />
     </>
   );
 }

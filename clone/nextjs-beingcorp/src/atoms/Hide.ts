@@ -3,10 +3,10 @@ import styled, { css } from "styled-components";
 export const deviceSize = {
   mobile: {
     min: "1px",
-    max: "768px",
+    max: "839px",
   },
   tablet: {
-    min: "769px",
+    min: "840px",
     max: "1024px",
   },
   laptop: {

@@ -1,7 +1,7 @@
 import React from "react";
 import Head from "next/head";
-import "styles/normalize.css";
 import GlobalStyle from "styles/GlobalStyle";
+import "styles/normalize.css";
 
 // Redux stuff
 import { Provider } from "react-redux";

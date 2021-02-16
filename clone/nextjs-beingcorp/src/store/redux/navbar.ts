@@ -1,9 +1,11 @@
 const HIDE = "navbar/HI" as const;
 const UNHIDE = "navbar/LO" as const;
+const SET_HEIGHT = "navbar/SET_HEIGHT" as const;
 
 export const hide = () => ({
   type: HIDE,
 });
+
 export const unHide = () => ({
   type: UNHIDE,
 });
